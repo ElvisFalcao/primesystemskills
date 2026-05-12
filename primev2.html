@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prime System Skills — B-BBEE Consulting & NQF5 IT Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:      #1B2A4A;
+  --navy-deep: #0E1829;
+  --gold:      #C9982A;
+  --gold-lt:   #E0B44A;
+  --gold-dim:  rgba(201,152,42,0.12);
+  --white:     #FFFFFF;
+  --off:       #F7F8FC;
+  --grey-100:  #EDEEF4;
+  --grey-200:  #D4D7E8;
+  --grey-400:  #9BA0BB;
+  --grey-700:  #4A4F6B;
+  --text:      #1A1D2E;
+  --body:      #505470;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  'DM Sans', system-ui, sans-serif;
+  --ease: cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--body);background:var(--white);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+h1,h2,h3,h4{font-family:var(--serif);color:var(--text);line-height:1.12}
+p{line-height:1.75}
+
+/* ─ UTILS ─ */
+.container{max-width:1200px;margin:0 auto;padding:0 72px}
+.eyebrow{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ─ NAVBAR ─ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  background:rgba(255,255,255,0.96);backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .25s,box-shadow .25s;
+}
+.nav.scrolled{border-color:var(--grey-100);box-shadow:0 2px 20px rgba(14,24,41,.06)}
+.nav-inner{
+  max-width:1200px;margin:0 auto;padding:0 72px;
+  height:70px;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{display:flex;align-items:center;line-height:0}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--body);transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{
+  background:var(--navy);color:var(--white);
+  font-size:13px;font-weight:600;padding:10px 22px;
+  border-radius:6px;transition:background .2s,transform .2s;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.nav-cta:hover{background:var(--gold);transform:translateY(-1px)}
+
+/* ─ HERO ─ */
+.hero{
+  padding-top:70px;min-height:100vh;
+  display:flex;align-items:center;
+  background:var(--white);position:relative;overflow:hidden;
+}
+.hero-grid{
+  max-width:1200px;margin:0 auto;padding:80px 72px;
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+  width:100%;
+}
+.hero-left{}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold-dim);border:1px solid rgba(201,152,42,.25);
+  border-radius:100px;padding:5px 14px;margin-bottom:28px;
+}
+.hero-tag span{font-size:11.5px;font-weight:600;color:var(--gold);letter-spacing:.5px}
+.hero-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{
+  font-size:clamp(40px,5vw,64px);font-weight:800;
+  color:var(--navy);line-height:1.05;margin-bottom:24px;
+}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:17px;color:var(--body);max-width:460px;margin-bottom:40px;line-height:1.7;font-weight:300}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-dark{
+  background:var(--navy);color:var(--white);font-family:var(--sans);
+  font-size:14.5px;font-weight:600;padding:15px 30px;border-radius:6px;
+  transition:all .22s;display:inline-flex;align-items:center;gap:7px;
+}
+.btn-dark:hover{background:var(--gold);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,152,42,.3)}
+.btn-ghost{
+  background:transparent;color:var(--navy);font-family:var(--sans);
+  font-size:14.5px;font-weight:500;padding:15px 30px;border-radius:6px;
+  border:1.5px solid var(--grey-200);
+  transition:all .22s;display:inline-flex;align-items:center;gap:7px;
+}
+.btn-ghost:hover{border-color:var(--navy);transform:translateY(-2px)}
+.hero-right{position:relative;display:flex;align-items:center;justify-content:center}
+.hero-svg-wrap{
+  width:100%;max-width:500px;
+  animation:float 6s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.hero-stats{
+  display:flex;gap:0;margin-top:52px;padding-top:36px;
+  border-top:1px solid var(--grey-100);
+}
+.hero-stat{padding-right:40px;margin-right:40px;border-right:1px solid var(--grey-100)}
+.hero-stat:last-child{border-right:none}
+.hero-stat .n{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--navy);line-height:1}
+.hero-stat .l{font-size:11.5px;font-weight:500;color:var(--grey-400);letter-spacing:.5px;margin-top:5px;text-transform:uppercase}
+
+/* ─ TICKER ─ */
+.ticker-wrap{
+  background:var(--off);border-top:1px solid var(--grey-100);border-bottom:1px solid var(--grey-100);
+  padding:20px 0;overflow:hidden;position:relative;
+}
+.ticker-track{
+  display:flex;gap:72px;align-items:center;
+  animation:ticker 28s linear infinite;white-space:nowrap;
+}
+.ticker-wrap:hover .ticker-track{animation-play-state:paused}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{
+  font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  color:var(--grey-400);flex-shrink:0;display:flex;align-items:center;gap:10px;
+}
+.ticker-item .dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.6}
+
+/* ─ ABOUT SECTION ─ */
+.about-sec{padding:120px 0;background:var(--white)}
+.about-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;
+}
+.about-left{}
+.about-left .eyebrow{margin-bottom:16px;display:block}
+.about-left h2{font-size:42px;margin-bottom:20px}
+.about-left p{margin-bottom:16px;font-size:16px}
+.about-right{}
+.big-quote{
+  background:var(--navy);border-radius:20px;padding:40px;
+  position:relative;overflow:hidden;
+}
+.big-quote::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,152,42,.2),transparent 65%);
+}
+.quote-mark{font-family:var(--serif);font-size:80px;color:var(--gold);opacity:.3;line-height:.6;margin-bottom:16px;display:block}
+.big-quote blockquote{font-family:var(--serif);font-size:18px;line-height:1.65;color:rgba(255,255,255,.9);margin-bottom:28px;position:relative}
+.quote-person{display:flex;align-items:center;gap:14px;position:relative}
+.quote-avatar{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--gold-dim);border:2px solid rgba(201,152,42,.3);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.quote-avatar svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.quote-name{font-size:13.5px;font-weight:600;color:var(--white)}
+.quote-role{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px}
+
+/* ─ TESTIMONIALS ─ */
+.testi-sec{padding:100px 0;background:var(--off)}
+.testi-header{text-align:center;margin-bottom:56px}
+.testi-header .eyebrow{margin-bottom:14px;display:block}
+.testi-header h2{font-size:40px}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.testi-card{
+  background:var(--white);border-radius:16px;padding:32px;
+  border:1px solid var(--grey-100);
+  transition:all .25s;display:flex;flex-direction:column;gap:20px;
+}
+.testi-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(14,24,41,.08)}
+.testi-card:nth-child(2){margin-top:28px}
+.testi-card:nth-child(4){margin-top:-28px}
+.testi-stars{display:flex;gap:3px}
+.testi-star{color:var(--gold);font-size:14px}
+.testi-card blockquote{font-size:14px;line-height:1.75;color:var(--body);flex:1}
+.testi-card blockquote::before{content:'"';font-family:var(--serif);font-size:32px;color:var(--gold);opacity:.4;display:block;line-height:.8;margin-bottom:8px}
+.testi-person{display:flex;align-items:center;gap:12px;border-top:1px solid var(--grey-100);padding-top:18px}
+.testi-ava{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--navy),var(--navy-deep));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:13px;font-weight:700;color:var(--gold);
+}
+.testi-name{font-size:13px;font-weight:600;color:var(--text)}
+.testi-co{font-size:11.5px;color:var(--grey-400);margin-top:1px}
+
+/* ─ SERVICES SECTION ─ */
+.services-sec{padding:120px 0;background:var(--navy);position:relative;overflow:hidden}
+.services-sec::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(201,152,42,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,152,42,.04) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.services-inner{position:relative;z-index:2}
+.services-top{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:64px;
+}
+.services-top .eyebrow{margin-bottom:16px;display:block}
+.services-top h2{font-size:42px;color:var(--white)}
+.services-top p{color:rgba(255,255,255,.6);font-size:15.5px;line-height:1.7}
+.services-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.svc-card{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:28px 20px;
+  transition:all .3s;cursor:default;
+}
+.svc-card:hover{background:rgba(255,255,255,.10);border-color:rgba(201,152,42,.35);transform:translateY(-4px)}
+.svc-card:hover .svc-icon{background:rgba(201,152,42,.2)}
+.svc-num{font-size:10px;font-weight:600;letter-spacing:2px;color:var(--gold);display:block;margin-bottom:16px}
+.svc-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:rgba(201,152,42,.1);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;transition:background .25s;
+}
+.svc-icon svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.svc-card h4{font-family:var(--serif);font-size:15.5px;color:var(--white);margin-bottom:10px;line-height:1.3}
+.svc-card p{font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.65}
+
+/* ─ PROGRAMME STORIES ─ */
+.stories-sec{padding:120px 0;background:var(--white)}
+.stories-header{margin-bottom:64px}
+.stories-header .eyebrow{margin-bottom:14px;display:block}
+.stories-header h2{font-size:42px;max-width:520px}
+.story-card{
+  display:grid;grid-template-columns:1fr 1.2fr;
+  border:1px solid var(--grey-100);border-radius:20px;
+  overflow:hidden;margin-bottom:24px;transition:all .25s;
+}
+.story-card:hover{box-shadow:0 20px 60px rgba(14,24,41,.08);transform:translateY(-3px)}
+.story-card:nth-child(even){direction:rtl}
+.story-card:nth-child(even)>*{direction:ltr}
+.story-img{
+  background:var(--navy);position:relative;
+  display:flex;align-items:center;justify-content:center;
+  min-height:280px;overflow:hidden;
+}
+.story-img::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 50%,rgba(201,152,42,.15),transparent 60%);
+}
+.story-icon-wrap{
+  width:80px;height:80px;border-radius:50%;
+  background:rgba(201,152,42,.12);border:1.5px solid rgba(201,152,42,.3);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:2;
+}
+.story-icon-wrap svg{width:36px;height:36px;stroke:var(--gold);fill:none;stroke-width:1.3}
+.story-body{padding:44px;display:flex;flex-direction:column;justify-content:center;gap:20px}
+.story-tag{
+  display:inline-flex;background:var(--gold-dim);color:var(--gold);
+  font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  padding:4px 12px;border-radius:100px;align-self:flex-start;
+}
+.story-stats{display:flex;gap:32px}
+.story-stat .big{font-family:var(--serif);font-size:36px;font-weight:700;color:var(--navy);line-height:1}
+.story-stat .sm{font-size:12px;color:var(--grey-400);margin-top:4px;letter-spacing:.3px}
+.story-body h3{font-size:22px;line-height:1.3}
+.story-body p{font-size:14px;color:var(--body);line-height:1.75}
+.story-link{
+  font-size:13.5px;font-weight:600;color:var(--navy);
+  display:inline-flex;align-items:center;gap:6px;
+  transition:gap .2s;align-self:flex-start;
+}
+.story-link:hover{gap:10px;color:var(--gold)}
+.story-divider{width:100%;height:1px;background:var(--grey-100);margin:8px 0}
+
+/* ─ PROGRAMMES GRID ─ */
+.prog-sec{padding:120px 0;background:var(--off)}
+.prog-header{text-align:center;margin-bottom:60px}
+.prog-header .eyebrow{margin-bottom:14px;display:block}
+.prog-header h2{font-size:40px}
+.prog-header p{max-width:480px;margin:16px auto 0;font-size:15px}
+.prog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:44px}
+.prog-tile{
+  background:var(--white);border:1px solid var(--grey-100);
+  border-radius:12px;padding:22px 18px;
+  transition:all .22s;cursor:default;
+}
+.prog-tile:hover{border-color:rgba(201,152,42,.4);transform:translateY(-3px);box-shadow:0 10px 28px rgba(14,24,41,.07)}
+.prog-tile-num{
+  width:30px;height:30px;border-radius:8px;
+  background:var(--gold-dim);border:1px solid rgba(201,152,42,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:12px;font-weight:700;color:var(--gold);
+  margin-bottom:12px;
+}
+.prog-tile h4{font-family:var(--serif);font-size:14px;color:var(--navy);margin-bottom:6px;line-height:1.4}
+.prog-tile .saqa{font-size:10px;font-weight:600;color:var(--grey-400);letter-spacing:.8px;text-transform:uppercase}
+.prog-tile .badge{
+  display:inline-flex;margin-top:10px;
+  background:var(--navy);color:var(--white);
+  font-size:9.5px;font-weight:600;letter-spacing:.5px;
+  padding:3px 9px;border-radius:100px;
+}
+
+/* ─ TEAM ─ */
+.team-sec{padding:120px 0;background:var(--white)}
+.team-header{margin-bottom:56px}
+.team-header .eyebrow{margin-bottom:14px;display:block}
+.team-header h2{font-size:40px}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.team-card{text-align:center}
+.team-card:nth-child(2){margin-top:32px}
+.team-card:nth-child(4){margin-top:32px}
+.team-photo{
+  width:120px;height:120px;border-radius:50%;
+  margin:0 auto 16px;
+  background:linear-gradient(135deg,var(--navy),var(--navy-deep));
+  border:3px solid var(--grey-100);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.team-photo::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:50%;
+  background:linear-gradient(180deg,transparent,rgba(201,152,42,.08));
+}
+.team-photo svg{width:44px;height:44px;stroke:rgba(255,255,255,.3);fill:none;stroke-width:1}
+.team-initials{font-family:var(--serif);font-size:32px;font-weight:700;color:rgba(201,152,42,.6)}
+.team-card h4{font-family:var(--sans);font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+.team-card p{font-size:12.5px;color:var(--grey-400)}
+.team-card .gold-bar{width:28px;height:2px;background:var(--gold);margin:10px auto 0}
+
+/* ─ CTA SECTION ─ */
+.cta-sec{
+  padding:140px 0;
+  background:var(--navy-deep);
+  position:relative;overflow:hidden;text-align:center;
+}
+.cta-sec::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(201,152,42,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,152,42,.04) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.cta-glow-l{position:absolute;left:-100px;top:50%;transform:translateY(-50%);width:400px;height:400px;background:radial-gradient(circle,rgba(201,152,42,.12),transparent 65%);pointer-events:none}
+.cta-glow-r{position:absolute;right:-100px;top:50%;transform:translateY(-50%);width:400px;height:400px;background:radial-gradient(circle,rgba(27,42,74,.8),transparent 65%);pointer-events:none}
+.cta-inner{position:relative;z-index:2}
+.cta-inner .eyebrow{margin-bottom:20px;display:block}
+.cta-inner h2{font-size:clamp(40px,5vw,64px);color:var(--white);margin-bottom:16px}
+.cta-inner h2 em{font-style:italic;color:var(--gold)}
+.cta-inner p{color:rgba(255,255,255,.55);font-size:17px;max-width:480px;margin:0 auto 48px;font-weight:300}
+.btn-cta{
+  background:var(--gold);color:var(--navy-deep);
+  font-family:var(--sans);font-size:16px;font-weight:700;
+  padding:18px 48px;border-radius:8px;
+  display:inline-flex;align-items:center;gap:10px;
+  transition:all .25s;letter-spacing:.3px;
+}
+.btn-cta:hover{background:var(--gold-lt);transform:translateY(-3px);box-shadow:0 12px 36px rgba(201,152,42,.4)}
+.btn-cta .arr{transition:transform .2s}
+.btn-cta:hover .arr{transform:translateX(4px)}
+
+/* ─ FOOTER ─ */
+.footer{background:var(--text);padding:60px 0 32px}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:48px}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;max-width:260px;margin:14px 0 18px}
+.footer-col h5{font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col li a{font-size:13px;color:rgba(255,255,255,.45);transition:color .2s}
+.footer-col li a:hover{color:var(--white)}
+.footer-bar{
+  border-top:1px solid rgba(255,255,255,.07);padding-top:28px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-bar p{font-size:12px;color:rgba(255,255,255,.25)}
+.footer-bar .tag{font-size:12px;color:var(--gold);opacity:.6}
+.gold-rule{width:36px;height:2px;background:var(--gold);margin-top:4px}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <!-- Inline SVG logo scaled for nav -->
+      <svg width="108" height="44" viewBox="0 0 2001 819" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 440.301V224.696H88.706C107.802 224.696 124.127 227.776 137.679 233.936C151.437 240.096 162.012 248.926 169.404 260.425C176.796 271.923 180.492 285.578 180.492 301.389C180.492 317.2 176.796 330.855 169.404 342.354C162.012 353.853 151.437 362.683 137.679 368.843C124.127 375.003 107.802 378.083 88.706 378.083H22.1765L40.0409 359.295V440.301H0ZM40.0409 363.607L22.1765 344.202H86.858C104.517 344.202 117.761 340.506 126.591 333.114C135.626 325.517 140.143 314.942 140.143 301.389C140.143 287.632 135.626 277.057 126.591 269.665C117.761 262.273 104.517 258.576 86.858 258.576H22.1765L40.0409 238.864V363.607Z" fill="#0B132B"/><path d="M220.478 440.301V224.696H308.876C337.623 224.696 360.107 231.472 376.329 245.024C392.756 258.576 400.97 277.365 400.97 301.389C400.97 317.2 397.274 330.855 389.881 342.354C382.489 353.648 371.914 362.375 358.157 368.535C344.604 374.49 328.28 377.467 309.184 377.467H242.654L260.519 359.295V440.301H220.478ZM361.545 440.301L307.028 362.067H349.841L404.666 440.301H361.545ZM260.519 363.607L242.654 344.51H307.336C324.995 344.51 338.239 340.712 347.068 333.114C356.103 325.517 360.621 314.942 360.621 301.389C360.621 287.632 356.103 277.057 347.068 269.665C338.239 262.273 324.995 258.576 307.336 258.576H242.654L260.519 238.864V363.607Z" fill="#0B132B"/><path d="M445.768 440.301V224.696H485.809V440.301H445.768Z" fill="#0B132B"/><path d="M544.126 440.301V224.696H577.082L671.332 382.087H654.084L746.794 224.696H779.751L780.059 440.301H742.174L741.866 284.141H749.874L671.024 415.66H653.16L573.078 284.141H582.318V440.301H544.126Z" fill="#0B132B"/><path d="M838.296 440.301V224.696H995.688V258.268H878.337V406.728H1000V440.301H838.296ZM875.257 347.282V314.326H982.444V347.282H875.257Z" fill="#0B132B"/><path d="M33.7186 594.304C26.9749 594.304 20.4906 593.223 14.2656 591.06C8.12706 588.81 3.37186 585.955 0 582.494L3.76093 575.097C6.95987 578.212 11.2395 580.85 16.5999 583.013C22.0468 585.09 27.753 586.128 33.7186 586.128C39.4249 586.128 44.0504 585.436 47.5952 584.052C51.2264 582.581 53.8634 580.634 55.5061 578.212C57.2352 575.789 58.0998 573.107 58.0998 570.165C58.0998 566.618 57.0623 563.763 54.9873 561.6C52.9988 559.437 50.3618 557.75 47.0764 556.539C43.791 555.241 40.1598 554.116 36.1827 553.164C32.2056 552.213 28.2286 551.218 24.2515 550.18C20.2744 549.055 16.5999 547.584 13.2281 545.767C9.94268 543.95 7.26248 541.571 5.18748 538.629C3.19895 535.601 2.20468 531.665 2.20468 526.819C2.20468 522.32 3.37186 518.211 5.70623 514.491C8.12706 510.684 11.8015 507.656 16.7296 505.406C21.6577 503.07 27.9692 501.902 35.664 501.902C40.765 501.902 45.8228 502.637 50.8373 504.108C55.8519 505.493 60.1748 507.439 63.806 509.948L60.5639 517.605C56.6733 515.01 52.5233 513.106 48.1139 511.895C43.791 510.684 39.5978 510.078 35.5343 510.078C30.0874 510.078 25.5916 510.813 22.0468 512.284C18.502 513.755 15.8651 515.745 14.1359 518.254C12.4932 520.677 11.6718 523.445 11.6718 526.56C11.6718 530.107 12.6661 532.962 14.6546 535.125C16.7296 537.288 19.4098 538.975 22.6952 540.187C26.0671 541.398 29.7416 542.479 33.7186 543.431C37.6957 544.383 41.6296 545.421 45.5202 546.546C49.4972 547.67 53.1285 549.141 56.4139 550.958C59.7857 552.689 62.4659 555.025 64.4545 557.966C66.5295 560.908 67.567 564.758 67.567 569.516C67.567 573.929 66.3566 578.039 63.9357 581.845C61.5149 585.566 57.7972 588.594 52.7826 590.93C47.8545 593.179 41.4999 594.304 33.7186 594.304Z" fill="#0B132B"/><path d="M108.235 593.525V559.783L110.44 565.753L71.9226 502.681H82.1679L116.016 558.096H110.569L144.418 502.681H154.015L115.497 565.753L117.702 559.783V593.525H108.235Z" fill="#0B132B"/><path d="M192.028 594.304C185.284 594.304 178.8 593.223 172.575 591.06C166.436 588.81 161.681 585.955 158.309 582.494L162.07 575.097C165.269 578.212 169.549 580.85 174.909 583.013C180.356 585.09 186.062 586.128 192.028 586.128C197.734 586.128 202.36 585.436 205.905 584.052C209.536 582.581 212.173 580.634 213.815 578.212C215.545 575.789 216.409 573.107 216.409 570.165C216.409 566.618 215.372 563.763 213.297 561.6C211.308 559.437 208.671 557.75 205.386 556.539C202.1 555.241 198.469 554.116 194.492 553.164C190.515 552.213 186.538 551.218 182.561 550.18C178.584 549.055 174.909 547.584 171.538 545.767C168.252 543.95 165.572 541.571 163.497 538.629C161.508 535.601 160.514 531.665 160.514 526.819C160.514 522.32 161.681 518.211 164.016 514.491C166.436 510.684 170.111 507.656 175.039 505.406C179.967 503.07 186.279 501.902 193.973 501.902C199.074 501.902 204.132 502.637 209.147 504.108C214.161 505.493 218.484 507.439 222.115 509.948L218.873 517.605C214.983 515.01 210.833 513.106 206.423 511.895C202.1 510.684 197.907 510.078 193.844 510.078C188.397 510.078 183.901 510.813 180.356 512.284C176.811 513.755 174.174 515.745 172.445 518.254C170.803 520.677 169.981 523.445 169.981 526.56C169.981 530.107 170.976 532.962 172.964 535.125C175.039 537.288 177.719 538.975 181.005 540.187C184.377 541.398 188.051 542.479 192.028 543.431C196.005 544.383 199.939 545.421 203.83 546.546C207.807 547.67 211.438 549.141 214.723 550.958C218.095 552.689 220.775 555.025 222.764 557.966C224.839 560.908 225.876 564.758 225.876 569.516C225.876 573.929 224.666 578.039 222.245 581.845C219.824 585.566 216.107 588.594 211.092 590.93C206.164 593.179 199.809 594.304 192.028 594.304Z" fill="#0B132B"/><path d="M263.157 593.525V510.987H231.254V502.681H304.657V510.987H272.754V593.525H263.157Z" fill="#0B132B"/><path d="M319.989 593.525V502.681H382.239V510.987H329.586V585.22H384.184V593.525H319.989ZM328.548 551.477V543.301H376.532V551.477H328.548Z" fill="#0B132B"/><path d="M406.742 593.525V502.681H414.653L456.153 573.54H452.003L493.114 502.681H501.025V593.525H491.817V517.086H494.022L456.153 581.975H451.614L413.486 517.086H415.95V593.525H406.742Z" fill="#0B132B"/><path d="M591.212 594.304C584.262 594.304 577.58 593.223 571.166 591.06C564.84 588.81 559.94 585.955 556.465 582.494L560.341 575.097C563.637 578.212 568.047 580.85 573.571 583.013C579.184 585.09 585.064 586.128 591.212 586.128C597.092 586.128 601.858 585.436 605.511 584.052C609.253 582.581 611.97 580.634 613.663 578.212C615.445 575.789 616.336 573.107 616.336 570.165C616.336 566.618 615.267 563.763 613.129 561.6C611.079 559.437 608.362 557.75 604.977 556.539C601.591 555.241 597.849 554.116 593.751 553.164C589.653 552.213 585.554 551.218 581.456 550.18C577.358 549.055 573.571 547.584 570.097 545.767C566.711 543.95 563.949 541.571 561.811 538.629C559.762 535.601 558.737 531.665 558.737 526.819C558.737 522.32 559.94 518.211 562.345 514.491C564.84 510.684 568.627 507.656 573.705 505.406C578.783 503.07 585.287 501.902 593.216 501.902C598.473 501.902 603.685 502.637 608.852 504.108C614.019 505.493 618.474 507.439 622.216 509.948L618.875 517.605C614.866 515.01 610.589 513.106 606.046 511.895C601.591 510.684 597.27 510.078 593.083 510.078C587.47 510.078 582.837 510.813 579.184 512.284C575.531 513.755 572.814 515.745 571.032 518.254C569.339 520.677 568.493 523.445 568.493 526.56C568.493 530.107 569.517 532.962 571.567 535.125C573.705 537.288 576.467 538.975 579.852 540.187C583.327 541.398 587.113 542.479 591.212 543.431C595.31 544.383 599.364 545.421 603.373 546.546C607.471 547.67 611.213 549.141 614.599 550.958C618.073 552.689 620.835 555.025 622.884 557.966C625.022 560.908 626.092 564.758 626.092 569.516C626.092 573.929 624.844 578.039 622.35 581.845C619.855 585.566 616.024 588.594 610.857 590.93C605.778 593.179 599.23 594.304 591.212 594.304Z" fill="#0B132B"/><path d="M656.192 570.944L655.791 559.264L712.454 502.681H723.813L682.519 544.729L676.906 550.569L656.192 570.944ZM647.639 593.525V502.681H657.528V593.525H647.639ZM714.86 593.525L674.5 548.363L681.182 541.355L726.62 593.525H714.86Z" fill="#0B132B"/><path d="M742.648 593.525V502.681H752.538V593.525H742.648Z" fill="#0B132B"/><path d="M782.975 593.525V502.681H792.864V585.22H845.251V593.525H782.975Z" fill="#0B132B"/><path d="M861.671 593.525V502.681H871.56V585.22H923.947V593.525H861.671Z" fill="#0B132B"/><path d="M965.115 594.304C958.166 594.304 951.484 593.223 945.07 591.06C938.744 588.81 933.844 585.955 930.369 582.494L934.245 575.097C937.541 578.212 941.951 580.85 947.475 583.013C953.088 585.09 958.968 586.128 965.115 586.128C970.996 586.128 975.762 585.436 979.415 584.052C983.157 582.581 985.874 580.634 987.567 578.212C989.349 575.789 990.24 573.107 990.24 570.165C990.24 566.618 989.171 563.763 987.032 561.6C984.983 559.437 982.266 557.75 978.88 556.539C975.495 555.241 971.753 554.116 967.655 553.164C963.556 552.213 959.458 551.218 955.36 550.18C951.261 549.055 947.475 547.584 944 545.767C940.615 543.95 937.853 541.571 935.715 538.629C933.666 535.601 932.641 531.665 932.641 526.819C932.641 522.32 933.844 518.211 936.249 514.491C938.744 510.684 942.53 507.656 947.609 505.406C952.687 503.07 959.191 501.902 967.12 501.902C972.377 501.902 977.589 502.637 982.756 504.108C987.923 505.493 992.378 507.439 996.12 509.948L992.779 517.605C988.77 515.01 984.493 513.106 979.949 511.895C975.495 510.684 971.174 510.078 966.986 510.078C961.374 510.078 956.741 510.813 953.088 512.284C949.435 513.755 946.718 515.745 944.936 518.254C943.243 520.677 942.397 523.445 942.397 526.56C942.397 530.107 943.421 532.962 945.47 535.125C947.609 537.288 950.371 538.975 953.756 540.187C957.231 541.398 961.017 542.479 965.115 543.431C969.214 544.383 973.267 545.421 977.277 546.546C981.375 547.67 985.117 549.141 988.502 550.958C991.977 552.689 994.739 555.025 996.788 557.966C998.926 560.908 999.995 564.758 999.995 569.516C999.995 573.929 998.748 578.039 996.253 581.845C993.759 585.566 989.928 588.594 984.761 590.93C979.682 593.179 973.134 594.304 965.115 594.304Z" fill="#0B132B"/>
+        <line x1="1087.25" y1="186.75" x2="1087.25" y2="632.25" stroke="#E5A93C" stroke-width="4.5" stroke-linecap="round"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M1551.12 0.917682C1533.91 5.10315 1519.24 18.8065 1514.73 34.9038C1511.8 45.3789 1513.23 61.3286 1517.93 70.5444C1525.3 84.9749 1545.65 97.4154 1561.89 97.4154C1565.1 97.4154 1567.06 100.122 1572.67 112.324C1583.22 135.253 1596.84 147.49 1631.22 164.94C1646.25 172.568 1658.15 182.168 1685.03 208.349L1713.27 235.852L1713.29 246.111C1713.34 278.625 1745.25 296.918 1772.6 280.117C1779.23 276.045 1784.54 268.124 1787.34 258.125C1791.19 244.355 1783.96 225.303 1771.89 217.398C1764.85 212.787 1751.34 209.931 1744.2 211.542C1737.88 212.966 1737.82 212.924 1712.37 188.37C1698.35 174.84 1686.56 162.08 1686.16 160.013C1684.46 151.171 1679.33 58.738 1680.48 57.591C1682.09 55.9857 1707.43 64.123 1729.09 73.2018C1763.59 87.6586 1799.55 110.056 1830.14 136.124C1874.98 174.336 1908.84 221.23 1932.04 277.243C1935.44 285.456 1938.22 292.615 1938.22 293.152C1938.22 293.692 1935.11 294.131 1931.3 294.131C1920.35 294.131 1901.51 299.115 1888.13 305.553C1874.51 312.111 1863.42 321.443 1825.75 358.044C1788.52 394.215 1793 391.275 1780.11 387.973C1756.91 382.034 1735.77 392.014 1724.38 414.273C1720.47 421.913 1720.04 424.616 1720.58 438.269L1721.18 453.653L1700.42 474.856L1679.65 496.059L1684.24 503.552C1686.77 507.672 1690.58 514.002 1692.7 517.617C1694.83 521.233 1696.97 524.168 1697.46 524.14C1697.94 524.114 1708.89 513.597 1721.79 500.77L1745.24 477.448L1754.3 480.577C1765.37 484.4 1771.73 484.571 1782.48 481.337C1793.89 477.905 1805.34 468.753 1810.94 458.592C1816.33 448.788 1818.41 432.271 1815.55 421.912L1813.73 415.329L1849.17 381.116C1868.67 362.3 1887.96 344.462 1892.04 341.478C1913.68 325.656 1950.29 323.364 1978.6 336.061C1982.93 338.002 1986.74 339.316 1987.07 338.98C1988.23 337.826 1978.5 300.232 1972.29 281.836C1964.11 257.631 1943.11 215.144 1928.45 193.139C1895.36 143.466 1847.66 97.4751 1799.12 68.4367C1779.15 56.4845 1747.67 41.2689 1726.45 33.3055C1699.21 23.0815 1635.95 7.9889 1635.95 11.7142C1635.95 12.1779 1637.47 16.9693 1639.32 22.3614C1641.18 27.7518 1643.52 37.9529 1644.52 45.0294C1646.88 61.6694 1650.84 134.048 1649.47 135.418C1647.75 137.136 1625.31 125.869 1617.17 119.198C1612.04 114.995 1607.64 108.909 1603.45 100.199C1596.34 85.4192 1596.02 82.8163 1600.72 77.779C1609.07 68.8126 1612.13 45.3525 1606.88 30.4548C1603.54 20.9897 1591.78 8.51757 1582.26 4.35317C1573.13 0.362662 1559.57 -1.13554 1551.12 0.917682ZM1460.21 24.448C1423.13 35.2814 1390.63 49.7558 1359.15 69.4625C1324.74 91.0046 1294.55 117.004 1265.5 150.107C1227.15 193.823 1196.01 257.027 1184.49 314.54C1179.63 338.85 1179.36 342.575 1182.55 341.78C1183.99 341.423 1189.13 340.034 1193.96 338.694C1203.51 336.047 1220.05 335.044 1276.19 333.709L1312.73 332.842L1305.36 346.984C1301.31 354.761 1295.78 363.343 1293.07 366.051C1290.36 368.761 1280.95 373.853 1272.16 377.37L1256.18 383.761L1250.55 379.551C1238.93 370.855 1233.23 368.953 1218.56 368.863C1206.96 368.793 1203.01 369.538 1195.99 373.123C1186.49 377.97 1179.04 385.635 1173.76 395.98C1168.36 406.547 1168.84 425.886 1174.78 437.805C1182.96 454.204 1199.85 464.5 1218.57 464.5C1241.66 464.5 1263 445.417 1266.23 421.873C1267.32 413.927 1267.39 413.853 1278.09 410.012C1306.87 399.679 1319.38 388.73 1335.43 359.835C1343.7 344.938 1348.79 338.66 1370.77 316.237L1396.45 290.04L1411.48 289.891C1425.27 289.752 1427.14 289.297 1434.13 284.393C1458.3 267.435 1454.92 230.741 1428.16 219.569C1424.58 218.072 1416.98 216.85 1411.25 216.85C1402.43 216.85 1399.57 217.716 1392.37 222.558C1380.86 230.309 1377.24 237.15 1376.22 253.096L1375.38 266.116L1358.07 282.57L1340.75 299.024L1312.17 300.05C1253.69 302.149 1224.71 302.512 1224.71 301.146C1224.71 296.516 1238.66 260.366 1246.93 243.563C1282.57 171.147 1346.45 110.311 1420.96 77.8194C1432.07 72.9735 1441.4 69.2763 1441.69 69.6012C1441.98 69.9262 1443.9 76.9095 1445.96 85.1207C1452.01 109.296 1456.75 117.108 1478.51 138.78C1489.22 149.455 1511.26 170.369 1527.49 185.252C1556.08 211.487 1556.94 212.475 1555.6 217.654C1554.85 220.593 1554.26 228.135 1554.29 234.414C1554.4 253.72 1566.73 270.82 1585.54 277.751C1592.79 280.424 1610.02 280.617 1618.37 278.118C1624.87 276.17 1625.05 276.256 1641.42 288.958C1650.49 296 1662.81 306.03 1668.8 311.249L1679.69 320.735L1694.93 311.424L1710.18 302.114L1703.38 296.196C1699.64 292.942 1685.78 281.578 1672.59 270.941L1648.61 251.605L1649.56 237.768C1650.69 221.228 1647.58 211.226 1638.01 200.637C1628.12 189.696 1616.39 184.548 1601.68 184.692C1594.91 184.759 1587.21 185.676 1584.56 186.729C1579.93 188.574 1578.5 187.504 1546.78 158.462C1497.26 113.135 1488.94 104.365 1482.49 90.7587C1477.35 79.9235 1476.9 77.5577 1476.95 61.4094C1477 45.6617 1478.99 34.5226 1484.15 21.0775C1485.58 17.3522 1483.49 17.6455 1460.21 24.448ZM1569.15 31.5403C1580.7 37.5103 1583.38 51.1188 1574.88 60.5892C1571.06 64.8397 1568.48 66.0322 1562.61 66.2571C1543.44 66.9947 1535.62 43.5768 1551.47 32.8997C1558.39 28.2383 1562.19 27.945 1569.15 31.5403ZM1744.91 149.861C1744.91 154.558 1745.39 161.92 1745.98 166.224L1747.05 174.048L1759.53 176.188C1791.64 181.689 1818.81 208.366 1823.79 239.277C1830.32 279.806 1804.3 313.453 1762.17 318.977C1725.77 323.747 1703.35 332.459 1688.15 347.739L1679.11 356.827L1670.6 345.802C1656.66 327.766 1634.56 313.179 1612.46 307.435C1606.8 305.964 1594.14 303.947 1584.35 302.955C1570.37 301.539 1564.12 299.969 1555.34 295.671C1534.5 285.472 1526.08 273.095 1520.04 243.793C1512.79 208.614 1507.37 197.238 1489.21 179.059C1468.53 158.36 1444.56 148.351 1415.66 148.351C1395.28 148.351 1384.91 150.764 1365.7 159.978C1340.13 172.236 1321.44 192.705 1310.23 220.689C1302.69 239.541 1303.01 240.166 1321.37 242.317C1326.69 242.941 1332.34 243.816 1333.93 244.262C1336.14 244.882 1337.55 242.774 1339.9 235.292C1343.72 223.159 1355.51 205.957 1365.34 198.183C1396.2 173.78 1439.12 174.863 1464.69 200.689C1475.89 212.007 1482.24 225.428 1486.56 246.952C1493.99 284.005 1500.17 296.505 1518.97 312.557L1528.66 320.826L1518.29 328.452C1496.23 344.681 1477.91 379.3 1477.81 404.947C1477.74 419.723 1467.23 441.702 1454.94 452.748C1443.85 462.714 1431.54 467.444 1410.53 469.82C1380.68 473.196 1362.5 481.362 1344.2 499.628C1314.24 529.522 1305.67 575.629 1322.85 614.445C1332.81 636.96 1355.48 659.702 1378.25 670.019C1391.41 675.982 1408.62 680.471 1418.47 680.51L1425.06 680.536L1424.88 668.68C1424.6 649.541 1424.08 648.689 1411.06 646.034C1381.74 640.058 1358.08 619.047 1350.34 592.111C1343.55 568.521 1349.43 542.507 1365.49 525.103C1379.15 510.288 1393.44 504.072 1420.57 501.144C1438.8 499.177 1456.23 493.788 1466.04 487.098C1469.11 484.999 1475.85 479.254 1481 474.331L1490.38 465.379L1494.95 471.526C1503.78 483.387 1522.8 500.561 1533.19 506.048C1547.64 513.677 1559.59 516.955 1583.25 519.783C1594.38 521.112 1607.94 523.865 1613.38 525.902C1635.18 534.052 1647.37 551.478 1654.36 584.446C1661.33 617.339 1668 630.23 1687.42 648.347C1727.98 686.165 1791.25 685.695 1834.91 647.251C1849.79 634.146 1866.24 605.721 1869.17 588.039L1870.09 582.482L1859.78 581.402C1854.11 580.807 1847 580.014 1843.98 579.639C1838.67 578.982 1838.33 579.352 1833.87 590.667C1831.33 597.108 1827.7 604.73 1825.8 607.607C1818.5 618.641 1805.45 629.884 1792.54 636.263C1779.73 642.588 1778.8 642.774 1759.9 642.774C1741.51 642.774 1739.8 642.461 1728.87 637.079C1714.59 630.054 1700.95 616.916 1695.09 604.544C1692.65 599.4 1689.08 587.316 1687.15 577.691C1679.94 541.718 1670.08 522.728 1651.6 509.165L1643.07 502.911L1653.13 494.475C1666.41 483.332 1669.66 479.644 1677.12 467.24C1686.16 452.209 1690.25 440.015 1693.13 419.54C1696.42 396.105 1701.32 383.31 1710.92 373.045C1721.54 361.701 1734.43 356.309 1759.11 352.891C1793.39 348.143 1811.43 339.95 1829.58 320.886C1848.75 300.754 1857.78 278.617 1857.63 252.095C1857.48 226.145 1851.71 209.078 1835.24 185.851C1818.44 162.163 1779.16 141.508 1750.62 141.355C1744.95 141.325 1744.91 141.395 1744.91 149.861ZM1608.53 215.785C1616.09 218.942 1620.13 224.817 1620.13 232.657C1620.13 240.484 1616.09 246.371 1608.57 249.512C1597.18 254.27 1583.22 244.994 1583.22 232.657C1583.22 226.366 1588.47 218.453 1594.32 215.908C1601.38 212.842 1601.48 212.84 1608.53 215.785ZM1449.49 321.453L1425.62 345.122L1419.25 342.46C1410.05 338.622 1392.51 339.098 1382.88 343.445C1373.18 347.824 1362.68 357.689 1357.93 366.894C1353.41 375.648 1351.92 391.621 1354.63 402.352L1356.72 410.667L1322.79 443.887C1282.38 483.452 1275.32 489.341 1262.06 494.598C1253.52 497.982 1248.69 498.604 1230.86 498.609C1212.15 498.613 1208.44 498.086 1197.91 493.93C1183.24 488.136 1183.34 487.521 1193.69 518.23C1216.94 587.224 1249.62 639.322 1300.51 688.489C1362.56 748.445 1432.77 784.47 1522.86 802.573L1528.39 803.685L1524.38 789.887C1520.48 776.468 1519.95 770.937 1515.46 696.8L1514.48 680.571L1522.05 683.838C1554.64 697.896 1559.25 701.924 1567.16 723.229L1570.95 733.428L1566.75 739.036C1558.43 750.143 1556.21 756.466 1556.13 769.234C1555.98 795.504 1573.97 815.564 1600.51 818.706C1627.71 821.925 1653.52 798.267 1653.52 770.112C1653.52 745.635 1635.58 725.496 1611.41 722.858L1601.82 721.811L1596.03 707.76C1584.3 679.336 1575.56 670.951 1542.86 656.767C1519.73 646.729 1514.89 643.132 1484.37 613.261L1458.45 587.89V577.074C1458.45 553.265 1443.98 537.754 1421.54 537.499C1400.92 537.266 1385.22 551.038 1383.41 570.936C1381.22 595.046 1399.79 613.693 1423.98 611.687L1433.53 610.895L1457.2 633.86L1480.87 656.825L1482.89 705.81C1483.99 732.753 1484.54 755.163 1484.09 755.611C1482.49 757.206 1453.7 746.618 1432.97 736.812C1350.99 698.038 1286.2 634.865 1248.3 556.744C1236.48 532.383 1236.44 531.32 1247.31 531.269C1255.62 531.233 1273.08 526.457 1282.69 521.594C1295.68 515.012 1307.64 504.697 1345.5 467.407L1381.05 432.39L1391.52 434.61C1397.32 435.84 1405.37 436.323 1409.58 435.694C1420.13 434.111 1434.67 425.356 1440.81 416.89C1448.51 406.269 1450.24 399.17 1449.21 382.572L1448.3 367.954L1454.69 362.096C1458.21 358.875 1468.09 349.044 1476.65 340.25L1492.21 324.26L1483.81 312.269C1479.19 305.674 1474.95 299.716 1474.38 299.029C1473.81 298.344 1462.61 308.433 1449.49 321.453ZM1614.94 346.125C1641.77 358.829 1657.22 382.614 1657.33 411.38C1657.43 436.005 1646.14 457.327 1625.75 471.022C1612.53 479.899 1605.91 482.075 1588.35 483.304C1529.91 487.397 1492.77 421.813 1525.16 371.726C1539.21 350.009 1559.94 339.569 1587.62 340.273C1601.17 340.619 1605.08 341.455 1614.94 346.125ZM1931.61 367.139C1916.63 374.603 1905.04 391.12 1904.49 405.802C1904.27 411.454 1903.48 412.536 1897.95 414.737C1861.1 429.388 1852.69 435.987 1838.16 461.636C1826.33 482.507 1819.76 490.463 1793.88 515.207L1773.44 534.756H1762.08C1747.22 534.756 1737.32 539.784 1729.53 551.301C1724.6 558.585 1723.82 561.242 1723.82 570.685C1723.82 584.451 1729.02 595.014 1739.41 602.324C1749.41 609.365 1767.07 610.735 1777.74 605.298C1792.53 597.754 1800.74 582.586 1798.8 566.388L1797.85 558.467L1814.12 542.482L1830.39 526.497L1870.69 525.352C1943.66 523.28 1944.46 523.299 1943.77 527.07C1942.75 532.68 1931.32 559.366 1922.04 577.787C1904.33 612.952 1884.1 639.739 1851.46 671.229C1819.73 701.843 1783.74 725.881 1744.03 742.993L1726.45 750.565L1724.29 740.58C1720.28 722.02 1716.8 712.711 1709.85 701.976C1701.24 688.658 1694.55 682.006 1651.22 643.71C1617.35 613.779 1616.54 612.901 1617.88 607.704C1620.77 596.505 1619.43 578.235 1615.11 569.884C1603.82 548.038 1582.02 538.397 1557.69 544.493L1546.19 547.377L1533.51 537.793C1526.54 532.52 1514.13 522.199 1505.94 514.856C1491.14 501.599 1491.01 501.527 1486.61 504.413C1484.17 506.011 1477.63 510.028 1472.07 513.338C1466.51 516.649 1461.96 519.772 1461.96 520.278C1461.96 520.782 1463.06 522.073 1464.4 523.146C1465.74 524.218 1479.94 536.07 1495.96 549.481L1525.08 573.865L1524.09 587.244C1523.14 599.951 1523.38 601.189 1529.02 611.993C1539.61 632.274 1561.17 642.934 1582.82 638.588C1593.69 636.407 1593.71 636.412 1611.34 653.054C1616.66 658.07 1630.5 670.454 1642.1 680.576C1681.45 714.912 1687.36 722.83 1690.96 745.961C1693.27 760.812 1690.72 779.176 1684.62 791.48L1680.3 800.208L1687.56 798.997C1700.04 796.916 1729.15 787.725 1749.3 779.507C1810.09 754.714 1870.85 709.569 1912.1 658.541C1937.02 627.723 1961 585.433 1973.63 550.047C1980.62 530.47 1993.17 485.458 1991.97 484.263C1991.61 483.905 1986.69 484.876 1981.03 486.42C1970.8 489.211 1955.61 490.077 1891.27 491.54L1859.26 492.269L1864.66 481.458C1867.64 475.513 1872.01 468.064 1874.38 464.908C1878.96 458.811 1892.68 451.147 1907.94 446.15L1917.2 443.12L1923.33 448.494C1935.15 458.869 1956.46 461.646 1972.59 454.91C1980.99 451.405 1992.83 439.999 1996.38 432.007C2011.26 398.48 1988.5 362.63 1952.35 362.63C1943.33 362.63 1938.6 363.657 1931.61 367.139ZM1415.83 375.87C1420.13 380.786 1421.21 391.818 1417.98 397.854C1415.82 401.885 1407.37 406.54 1402.21 406.54C1396.14 406.54 1388.4 401.567 1385.38 395.729C1380.29 385.907 1385.57 372.666 1395.63 369.991C1403.13 367.999 1410.93 370.272 1415.83 375.87ZM1962.57 394.991C1968.17 397.882 1971.61 404.393 1971.61 412.067C1971.61 420.094 1961.72 429.373 1953.16 429.373C1948.11 429.373 1945.32 428.04 1940.68 423.401C1924.79 407.516 1942.45 384.592 1962.57 394.991ZM1228.74 401.299C1234.16 405.556 1237.6 415.012 1236.02 421.297C1234.34 427.98 1225.6 434.642 1218.51 434.642C1205.93 434.642 1199.31 427.85 1199.31 414.951C1199.31 400.84 1217.45 392.424 1228.74 401.299ZM1780.91 420.575C1784.9 423.884 1787.53 432.599 1786.38 438.722C1784.7 447.667 1777.9 453.084 1768.34 453.084C1761.63 453.084 1759.66 452.216 1755.31 447.348C1745.9 436.825 1750.02 420.849 1763.03 417.387C1768.83 415.845 1776.96 417.292 1780.91 420.575ZM1579.77 574.304C1582.6 575.769 1586.12 579.287 1587.59 582.12C1595 596.442 1583.94 612.618 1568.8 609.592C1552.01 606.237 1548.19 583.9 1562.87 574.951C1569.44 570.952 1573.01 570.814 1579.77 574.304ZM1615.89 755.442C1620.76 758.632 1623.91 768.327 1622.45 775.62C1620.98 782.99 1612.56 789.432 1604.42 789.432C1591.57 789.432 1582.57 776.582 1586.69 764.108C1590.65 752.112 1604.52 747.997 1615.89 755.442Z" fill="#E5A93C"/>
+      </svg>
+    </a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#programmes">Programmes</a>
+      <a href="#team">Team</a>
+      <a href="#contact" class="nav-cta">Enrol Now →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid reveal in">
+    <div class="hero-left">
+      <div class="hero-tag"><span class="hero-dot"></span><span>SAQA Accredited · South Africa</span></div>
+      <h1>Empowering<br><em>Skills</em> That<br>Build Nations</h1>
+      <p class="hero-sub">Prime System Skills is your trusted B-BBEE consulting and NQF Level 5 ICT training partner — delivering transformation that goes beyond the scorecard.</p>
+      <div class="hero-btns">
+        <a href="#services" class="btn-dark">Explore Services →</a>
+        <a href="#programmes" class="btn-ghost">View Programmes</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="n">500+</div><div class="l">Learners Trained</div></div>
+        <div class="hero-stat"><div class="n">14</div><div class="l">NQF5 Programmes</div></div>
+        <div class="hero-stat"><div class="n">10+</div><div class="l">Years Experience</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-svg-wrap">
+        <!-- Floating circuit/network illustration -->
+        <svg viewBox="0 0 500 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background circle -->
+          <circle cx="250" cy="240" r="220" fill="#F0F2F8" opacity="0.6"/>
+          <circle cx="250" cy="240" r="180" fill="#E8EAF2" opacity="0.5"/>
+          <!-- Circuit nodes and lines -->
+          <circle cx="250" cy="240" r="40" fill="#1B2A4A" opacity="0.08"/>
+          <circle cx="250" cy="240" r="28" fill="#1B2A4A" opacity="0.12"/>
+          <circle cx="250" cy="240" r="16" fill="#C9982A" opacity="0.9"/>
+          <!-- Spokes -->
+          <line x1="250" y1="240" x2="250" y2="100" stroke="#1B2A4A" stroke-width="1.5" opacity="0.15"/>
+          <line x1="250" y1="240" x2="130" y2="170" stroke="#1B2A4A" stroke-width="1.5" opacity="0.15"/>
+          <line x1="250" y1="240" x2="130" y2="310" stroke="#1B2A4A" stroke-width="1.5" opacity="0.15"/>
+          <line x1="250" y1="240" x2="250" y2="380" stroke="#1B2A4A" stroke-width="1.5" opacity="0.15"/>
+          <line x1="250" y1="240" x2="370" y2="310" stroke="#1B2A4A" stroke-width="1.5" opacity="0.15"/>
+          <line x1="250" y1="240" x2="370" y2="170" stroke="#1B2A4A" stroke-width="1.5" opacity="0.15"/>
+          <!-- Outer nodes -->
+          <circle cx="250" cy="100" r="18" fill="#1B2A4A"/><circle cx="250" cy="100" r="8" fill="#C9982A"/>
+          <circle cx="130" cy="170" r="18" fill="#1B2A4A"/><circle cx="130" cy="170" r="8" fill="#C9982A"/>
+          <circle cx="130" cy="310" r="18" fill="#1B2A4A"/><circle cx="130" cy="310" r="8" fill="#C9982A"/>
+          <circle cx="250" cy="380" r="18" fill="#1B2A4A"/><circle cx="250" cy="380" r="8" fill="#C9982A"/>
+          <circle cx="370" cy="310" r="18" fill="#1B2A4A"/><circle cx="370" cy="310" r="8" fill="#C9982A"/>
+          <circle cx="370" cy="170" r="18" fill="#1B2A4A"/><circle cx="370" cy="170" r="8" fill="#C9982A"/>
+          <!-- Outer ring connections -->
+          <path d="M250 100 Q195 100 130 170" stroke="#C9982A" stroke-width="1.5" opacity="0.3" fill="none"/>
+          <path d="M130 170 Q95 240 130 310" stroke="#C9982A" stroke-width="1.5" opacity="0.3" fill="none"/>
+          <path d="M130 310 Q195 380 250 380" stroke="#C9982A" stroke-width="1.5" opacity="0.3" fill="none"/>
+          <path d="M250 380 Q305 380 370 310" stroke="#C9982A" stroke-width="1.5" opacity="0.3" fill="none"/>
+          <path d="M370 310 Q405 240 370 170" stroke="#C9982A" stroke-width="1.5" opacity="0.3" fill="none"/>
+          <path d="M370 170 Q305 100 250 100" stroke="#C9982A" stroke-width="1.5" opacity="0.3" fill="none"/>
+          <!-- Small accent dots -->
+          <circle cx="190" cy="135" r="5" fill="#C9982A" opacity="0.4"/>
+          <circle cx="95" cy="240" r="5" fill="#C9982A" opacity="0.4"/>
+          <circle cx="190" cy="345" r="5" fill="#C9982A" opacity="0.4"/>
+          <circle cx="310" cy="345" r="5" fill="#C9982A" opacity="0.4"/>
+          <circle cx="405" cy="240" r="5" fill="#C9982A" opacity="0.4"/>
+          <circle cx="310" cy="135" r="5" fill="#C9982A" opacity="0.4"/>
+          <!-- Labels -->
+          <text x="250" y="72" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1B2A4A" opacity="0.5" letter-spacing="1">BEE ADVISORY</text>
+          <text x="88" y="155" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1B2A4A" opacity="0.5" letter-spacing="1">STRATEGY</text>
+          <text x="78" y="330" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1B2A4A" opacity="0.5" letter-spacing="1">AUDIT</text>
+          <text x="250" y="415" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1B2A4A" opacity="0.5" letter-spacing="1">TRAINING</text>
+          <text x="420" y="330" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1B2A4A" opacity="0.5" letter-spacing="1">Y.E.S</text>
+          <text x="415" y="155" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1B2A4A" opacity="0.5" letter-spacing="1">NQF5</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <div class="ticker-item"><span class="dot"></span>SAQA Accredited</div>
+    <div class="ticker-item"><span class="dot"></span>QCTO Registered</div>
+    <div class="ticker-item"><span class="dot"></span>B-BBEE Specialists</div>
+    <div class="ticker-item"><span class="dot"></span>NQF Level 5 Qualifications</div>
+    <div class="ticker-item"><span class="dot"></span>Skills Development Act Compliant</div>
+    <div class="ticker-item"><span class="dot"></span>National Skills Fund</div>
+    <div class="ticker-item"><span class="dot"></span>Department of Higher Education</div>
+    <div class="ticker-item"><span class="dot"></span>Workplace-Based Learning</div>
+    <div class="ticker-item"><span class="dot"></span>Y.E.S Programme Partner</div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item"><span class="dot"></span>SAQA Accredited</div>
+    <div class="ticker-item"><span class="dot"></span>QCTO Registered</div>
+    <div class="ticker-item"><span class="dot"></span>B-BBEE Specialists</div>
+    <div class="ticker-item"><span class="dot"></span>NQF Level 5 Qualifications</div>
+    <div class="ticker-item"><span class="dot"></span>Skills Development Act Compliant</div>
+    <div class="ticker-item"><span class="dot"></span>National Skills Fund</div>
+    <div class="ticker-item"><span class="dot"></span>Department of Higher Education</div>
+    <div class="ticker-item"><span class="dot"></span>Workplace-Based Learning</div>
+    <div class="ticker-item"><span class="dot"></span>Y.E.S Programme Partner</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-sec" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-left reveal">
+        <span class="eyebrow">Who We Are</span>
+        <h2>We Transform Businesses Through Empowered People</h2>
+        <p>Prime System Skills is a South African training and consulting firm built on a single belief — that genuine skills development is the most powerful tool for transformation.</p>
+        <p>From B-BBEE strategy and audit preparation to 14 SAQA-registered NQF Level 5 ICT programmes, we deliver solutions that produce real results: compliant scorecards, skilled workforces, and businesses positioned to grow.</p>
+        <p>With over a decade of experience across South Africa's corporate landscape, we understand what transformation actually looks like when it works.</p>
+      </div>
+      <div class="about-right reveal">
+        <div class="big-quote">
+          <span class="quote-mark">"</span>
+          <blockquote>Prime System Skills didn't just help us with our scorecard. They helped us build a team that was genuinely ready for the digital economy. The difference was visible within months.</blockquote>
+          <div class="quote-person">
+            <div class="quote-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div>
+              <div class="quote-name">Corporate Client</div>
+              <div class="quote-role">Financial Services · Johannesburg</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-sec">
+  <div class="container">
+    <div class="testi-header reveal">
+      <span class="eyebrow">What They Say</span>
+      <h2>Trusted by Companies<br>Across South Africa</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>The team at Prime System Skills understood our B-BBEE challenges from day one. Their advisory process was structured, practical, and delivered a score we were genuinely proud of.</blockquote>
+        <div class="testi-person">
+          <div class="testi-ava">TM</div>
+          <div><div class="testi-name">Thabo Molefe</div><div class="testi-co">Operations Director · Retail</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <blockquote>We enrolled 12 of our junior staff in the End User Computing NQF5 programme. Every single one of them passed. The improvement in productivity has been remarkable.</blockquote>
+        <div class="testi-person">
+          <div class="testi-ava">NP</div>
+          <div><div class="testi-name">Nomvula Petersen</div><div class="testi-co">HR Manager · Manufacturing</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>What sets Prime System Skills apart is that they actually care about the learners — not just the numbers. Our Y.E.S programme placements led to 4 permanent hires.</blockquote>
+        <div class="testi-person">
+          <div class="testi-ava">KD</div>
+          <div><div class="testi-name">Kefilwe Dlamini</div><div class="testi-co">CEO · Technology SME</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <blockquote>The audit assistance was thorough and stress-free. They prepared us so well that our verification went smoothly and we achieved a Level 2 — up from Level 5 the previous year.</blockquote>
+        <div class="testi-person">
+          <div class="testi-ava">RS</div>
+          <div><div class="testi-name">Riaan Steyn</div><div class="testi-co">CFO · Engineering Firm</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>I completed the IT Technical Support programme and landed a job within six weeks of finishing. The qualification is respected and the training was genuinely excellent.</blockquote>
+        <div class="testi-person">
+          <div class="testi-ava">ZM</div>
+          <div><div class="testi-name">Zanele Mthembu</div><div class="testi-co">Learner Graduate · Cape Town</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <blockquote>We've used Prime System Skills for three consecutive years for our skills development element. They know the codes, they know the sector, and they deliver every time. Non-negotiable partnership.</blockquote>
+        <div class="testi-person">
+          <div class="testi-ava">AM</div>
+          <div><div class="testi-name">Andile Mahlangu</div><div class="testi-co">Transformation Lead · Finance</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-sec" id="services">
+  <div class="container services-inner">
+    <div class="services-top reveal">
+      <div>
+        <span class="eyebrow">B-BBEE Consulting</span>
+        <h2>We Partner with the Best Businesses that Want Real Transformation</h2>
+      </div>
+      <div>
+        <p>Our five core B-BBEE service lines are built around the practical realities of South African compliance. Not box-ticking — genuine transformation that moves the needle on your scorecard and your business.</p>
+      </div>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal">
+        <span class="svc-num">01</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h4>BEE Advisory & Consulting</h4>
+        <p>Strategic guidance across all B-BBEE elements to maximise your scorecard.</p>
+      </div>
+      <div class="svc-card reveal">
+        <span class="svc-num">02</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+        <h4>BEE Strategy Development</h4>
+        <p>Multi-year transformation roadmaps aligned to your sector codes.</p>
+      </div>
+      <div class="svc-card reveal">
+        <span class="svc-num">03</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></div>
+        <h4>BEE Audit Assistance</h4>
+        <p>Full preparation and support through your verification audit process.</p>
+      </div>
+      <div class="svc-card reveal">
+        <span class="svc-num">04</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+        <h4>BEE Training</h4>
+        <p>Accredited programmes that satisfy your skills development scorecard element.</p>
+      </div>
+      <div class="svc-card reveal">
+        <span class="svc-num">05</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+        <h4>Y.E.S Programme</h4>
+        <p>Youth Employment Service placements that meaningfully boost your B-BBEE rating.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMME STORIES -->
+<section class="stories-sec" id="programmes">
+  <div class="container">
+    <div class="stories-header reveal">
+      <span class="eyebrow">Programme Highlights</span>
+      <h2>Let Us Build Your ICT Workforce</h2>
+    </div>
+
+    <div class="story-card reveal">
+      <div class="story-img">
+        <div class="story-icon-wrap"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      </div>
+      <div class="story-body">
+        <span class="story-tag">Most Popular · SAQA 49077</span>
+        <div class="story-stats">
+          <div class="story-stat"><div class="big">12</div><div class="sm">Month Programme</div></div>
+          <div class="story-stat"><div class="big">120</div><div class="sm">NQF Credits</div></div>
+          <div class="story-stat"><div class="big">NQF5</div><div class="sm">Level</div></div>
+        </div>
+        <h3>End User Computing</h3>
+        <p>Foundational digital literacy and computer proficiency for the modern workplace. Covers Microsoft Office Suite, internet navigation, email communication, and basic IT systems. Ideal for entry-level corporate staff and skills development levy spend.</p>
+        <a href="#contact" class="story-link">Enrol Your Team <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="story-card reveal">
+      <div class="story-img" style="background:linear-gradient(135deg,#111B30,#223360)">
+        <div class="story-icon-wrap"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></div>
+      </div>
+      <div class="story-body">
+        <span class="story-tag">High Demand · SAQA 78964</span>
+        <div class="story-stats">
+          <div class="story-stat"><div class="big">12</div><div class="sm">Month Programme</div></div>
+          <div class="story-stat"><div class="big">120</div><div class="sm">NQF Credits</div></div>
+          <div class="story-stat"><div class="big">NQF5</div><div class="sm">Level</div></div>
+        </div>
+        <h3>IT Technical Support</h3>
+        <p>Hardware and software troubleshooting, helpdesk competencies, and user support skills. Essential for ICT support roles across any sector. Learners graduate job-ready for real helpdesk and technical environments.</p>
+        <a href="#contact" class="story-link">Enrol Your Team <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="story-card reveal">
+      <div class="story-img" style="background:linear-gradient(135deg,#0E1829,#1B2A4A)">
+        <div class="story-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      </div>
+      <div class="story-body">
+        <span class="story-tag">Growing · SAQA 117883</span>
+        <div class="story-stats">
+          <div class="story-stat"><div class="big">12</div><div class="sm">Month Programme</div></div>
+          <div class="story-stat"><div class="big">120</div><div class="sm">NQF Credits</div></div>
+          <div class="story-stat"><div class="big">NQF5</div><div class="sm">Level</div></div>
+        </div>
+        <h3>Cyber Security Fundamentals</h3>
+        <p>Critical digital protection skills for an increasingly vulnerable business landscape. Covers threat identification, security protocols, data protection, and incident response fundamentals. High demand in every sector.</p>
+        <a href="#contact" class="story-link">Enrol Your Team <span>→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALL PROGRAMMES -->
+<section class="prog-sec" id="all-programmes">
+  <div class="container">
+    <div class="prog-header reveal">
+      <span class="eyebrow">Complete Catalogue</span>
+      <h2>All 14 NQF Level 5 Programmes</h2>
+      <p>Every programme is SAQA-registered, QCTO-aligned, and built for real-world ICT roles.</p>
+    </div>
+    <div class="prog-grid">
+      <div class="prog-tile reveal"><div class="prog-tile-num">01</div><h4>End User Computing</h4><div class="saqa">SAQA 49077</div><span class="badge">NQF 5</span></div>
+      <div class="prog-tile reveal"><div class="prog-tile-num">02</div><h4>IT Technical Support</h4><div class="saqa">SAQA 78964</div><span class="badge">NQF 5</span></div>
+      <div class="prog-tile reveal"><div class="prog-tile-num">03</div><h4>Systems Support</h4><div class="saqa">SAQA 48872</div><span class="badge">NQF 5</span></div>
+      <div class="prog-tile reveal"><div class="prog-tile-num">04</div><h4>Network Installation & Support</h4><div class="saqa">SAQA 58585</div><span class="badge">NQF 5</span></div>
+      <div class="prog-tile reveal"><div class="prog-tile-num">05</div><h4>Cyber Security Fundamentals</h4><div class="saqa">SAQA 117883</div><span class="badge">NQF 5</span></div>
+      <div class="prog-tile reveal"><div class="prog-tile-num">06</div><h4>Web Development</h4><div class="saqa">SAQA 78965</div><span class="badge">NQF 5</span></div>
+      <div class="prog-tile reveal"><div class="prog-tile-num">07</div><h4>Software Development</h4><div class="saqa">SAQA 48872</div><span class="badge">NQF 5</span></div>
+      <div class="prog-tile reveal"><div class="prog-tile-num">08</div><h4>Data Analytics</h4><div class="saqa">SAQA 99693</div><span class="badge">NQF 5</span></div>
+      <div class="prog-tile reveal"><div class="prog-tile-num">09</div><h4>Project Management</h4><div class="saqa">SAQA 58395</div><span class="badge">NQF 5</span></div>
+      <div class="prog-tile reveal"><div class="prog-tile-num">10</div><h4>Business Administration</h4><div class="saqa">SAQA 67465</div><span class="badge">NQF 5</span></div>
+      <div class="prog-tile reveal"><div class="prog-tile-num">11</div><h4>Leadership & Management</h4><div class="saqa">SAQA 59201</div><span class="badge">NQF 5</span></div>
+      <div class="prog-tile reveal"><div class="prog-tile-num">12</div><h4>Customer Service Excellence</h4><div class="saqa">SAQA 49648</div><span class="badge">NQF 5</span></div>
+      <div class="prog-tile reveal"><div class="prog-tile-num">13</div><h4>Spatial Intelligence OC</h4><div class="saqa">SAQA Pending</div><span class="badge">NQF 5</span></div>
+      <div class="prog-tile reveal"><div class="prog-tile-num">14</div><h4>Digital Marketing</h4><div class="saqa">SAQA 117853</div><span class="badge">NQF 5</span></div>
+    </div>
+    <div style="text-align:center">
+      <a href="#contact" class="btn-dark" style="display:inline-flex;font-size:15px;padding:16px 36px">Enquire About Enrolment →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-sec" id="team">
+  <div class="container">
+    <div class="team-header reveal">
+      <span class="eyebrow">Core Team</span>
+      <h2>Meet The Prime Team</h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-photo"><span class="team-initials">A</span></div>
+        <h4>Anga [Surname]</h4>
+        <p>Founder & CEO</p>
+        <div class="gold-bar"></div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-photo"><span class="team-initials">—</span></div>
+        <h4>BEE Consultant</h4>
+        <p>Senior B-BBEE Advisor</p>
+        <div class="gold-bar"></div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-photo"><span class="team-initials">—</span></div>
+        <h4>Programme Lead</h4>
+        <p>NQF5 Training Coordinator</p>
+        <div class="gold-bar"></div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-photo"><span class="team-initials">—</span></div>
+        <h4>Skills Developer</h4>
+        <p>Learner Support & Placement</p>
+        <div class="gold-bar"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec" id="contact">
+  <div class="cta-glow-l"></div>
+  <div class="cta-glow-r"></div>
+  <div class="container cta-inner">
+    <span class="eyebrow">Get Started</span>
+    <h2>Ready to <em>Transform</em><br>Your Business?</h2>
+    <p>Whether you need B-BBEE consulting or want to enrol your team in an NQF5 programme — let's talk.</p>
+    <a href="mailto:info@primesystemskills.co.za" class="btn-cta">Let's Partner <span class="arr">→</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg width="100" height="41" viewBox="0 0 2001 819" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 440.301V224.696H88.706C107.802 224.696 124.127 227.776 137.679 233.936C151.437 240.096 162.012 248.926 169.404 260.425C176.796 271.923 180.492 285.578 180.492 301.389C180.492 317.2 176.796 330.855 169.404 342.354C162.012 353.853 151.437 362.683 137.679 368.843C124.127 375.003 107.802 378.083 88.706 378.083H22.1765L40.0409 359.295V440.301H0ZM40.0409 363.607L22.1765 344.202H86.858C104.517 344.202 117.761 340.506 126.591 333.114C135.626 325.517 140.143 314.942 140.143 301.389C140.143 287.632 135.626 277.057 126.591 269.665C117.761 262.273 104.517 258.576 86.858 258.576H22.1765L40.0409 238.864V363.607Z" fill="rgba(255,255,255,0.7)"/><path d="M220.478 440.301V224.696H308.876C337.623 224.696 360.107 231.472 376.329 245.024C392.756 258.576 400.97 277.365 400.97 301.389C400.97 317.2 397.274 330.855 389.881 342.354C382.489 353.648 371.914 362.375 358.157 368.535C344.604 374.49 328.28 377.467 309.184 377.467H242.654L260.519 359.295V440.301H220.478ZM260.519 363.607L242.654 344.51H307.336C324.995 344.51 338.239 340.712 347.068 333.114C356.103 325.517 360.621 314.942 360.621 301.389C360.621 287.632 356.103 277.057 347.068 269.665C338.239 262.273 324.995 258.576 307.336 258.576H242.654L260.519 238.864V363.607Z" fill="rgba(255,255,255,0.7)"/><path d="M445.768 440.301V224.696H485.809V440.301H445.768Z" fill="rgba(255,255,255,0.7)"/><path d="M544.126 440.301V224.696H577.082L671.332 382.087H654.084L746.794 224.696H779.751L780.059 440.301H742.174L741.866 284.141H749.874L671.024 415.66H653.16L573.078 284.141H582.318V440.301H544.126Z" fill="rgba(255,255,255,0.7)"/><path d="M838.296 440.301V224.696H995.688V258.268H878.337V406.728H1000V440.301H838.296ZM875.257 347.282V314.326H982.444V347.282H875.257Z" fill="rgba(255,255,255,0.7)"/><path d="M33.7186 594.304C26.9749 594.304 20.4906 593.223 14.2656 591.06C8.12706 588.81 3.37186 585.955 0 582.494L3.76093 575.097C6.95987 578.212 11.2395 580.85 16.5999 583.013C22.0468 585.09 27.753 586.128 33.7186 586.128C39.4249 586.128 44.0504 585.436 47.5952 584.052C51.2264 582.581 53.8634 580.634 55.5061 578.212C57.2352 575.789 58.0998 573.107 58.0998 570.165C58.0998 566.618 57.0623 563.763 54.9873 561.6C52.9988 559.437 50.3618 557.75 47.0764 556.539C43.791 555.241 40.1598 554.116 36.1827 553.164C32.2056 552.213 28.2286 551.218 24.2515 550.18C20.2744 549.055 16.5999 547.584 13.2281 545.767C9.94268 543.95 7.26248 541.571 5.18748 538.629C3.19895 535.601 2.20468 531.665 2.20468 526.819C2.20468 522.32 3.37186 518.211 5.70623 514.491C8.12706 510.684 11.8015 507.656 16.7296 505.406C21.6577 503.07 27.9692 501.902 35.664 501.902C40.765 501.902 45.8228 502.637 50.8373 504.108C55.8519 505.493 60.1748 507.439 63.806 509.948L60.5639 517.605C56.6733 515.01 52.5233 513.106 48.1139 511.895C43.791 510.684 39.5978 510.078 35.5343 510.078C30.0874 510.078 25.5916 510.813 22.0468 512.284C18.502 513.755 15.8651 515.745 14.1359 518.254C12.4932 520.677 11.6718 523.445 11.6718 526.56C11.6718 530.107 12.6661 532.962 14.6546 535.125C16.7296 537.288 19.4098 538.975 22.6952 540.187C26.0671 541.398 29.7416 542.479 33.7186 543.431C37.6957 544.383 41.6296 545.421 45.5202 546.546C49.4972 547.67 53.1285 549.141 56.4139 550.958C59.7857 552.689 62.4659 555.025 64.4545 557.966C66.5295 560.908 67.567 564.758 67.567 569.516C67.567 573.929 66.3566 578.039 63.9357 581.845C61.5149 585.566 57.7972 588.594 52.7826 590.93C47.8545 593.179 41.4999 594.304 33.7186 594.304Z" fill="rgba(255,255,255,0.7)"/><path d="M108.235 593.525V559.783L110.44 565.753L71.9226 502.681H82.1679L116.016 558.096H110.569L144.418 502.681H154.015L115.497 565.753L117.702 559.783V593.525H108.235Z" fill="rgba(255,255,255,0.7)"/><path d="M192.028 594.304C185.284 594.304 178.8 593.223 172.575 591.06C166.436 588.81 161.681 585.955 158.309 582.494L162.07 575.097C165.269 578.212 169.549 580.85 174.909 583.013C180.356 585.09 186.062 586.128 192.028 586.128C197.734 586.128 202.36 585.436 205.905 584.052C209.536 582.581 212.173 580.634 213.815 578.212C215.545 575.789 216.409 573.107 216.409 570.165C216.409 566.618 215.372 563.763 213.297 561.6C211.308 559.437 208.671 557.75 205.386 556.539C202.1 555.241 198.469 554.116 194.492 553.164C190.515 552.213 186.538 551.218 182.561 550.18C178.584 549.055 174.909 547.584 171.538 545.767C168.252 543.95 165.572 541.571 163.497 538.629C161.508 535.601 160.514 531.665 160.514 526.819C160.514 522.32 161.681 518.211 164.016 514.491C166.436 510.684 170.111 507.656 175.039 505.406C179.967 503.07 186.279 501.902 193.973 501.902C199.074 501.902 204.132 502.637 209.147 504.108C214.161 505.493 218.484 507.439 222.115 509.948L218.873 517.605C214.983 515.01 210.833 513.106 206.423 511.895C202.1 510.684 197.907 510.078 193.844 510.078C188.397 510.078 183.901 510.813 180.356 512.284C176.811 513.755 174.174 515.745 172.445 518.254C170.803 520.677 169.981 523.445 169.981 526.56C169.981 530.107 170.976 532.962 172.964 535.125C175.039 537.288 177.719 538.975 181.005 540.187C184.377 541.398 188.051 542.479 192.028 543.431C196.005 544.383 199.939 545.421 203.83 546.546C207.807 547.67 211.438 549.141 214.723 550.958C218.095 552.689 220.775 555.025 222.764 557.966C224.839 560.908 225.876 564.758 225.876 569.516C225.876 573.929 224.666 578.039 222.245 581.845C219.824 585.566 216.107 588.594 211.092 590.93C206.164 593.179 199.809 594.304 192.028 594.304Z" fill="rgba(255,255,255,0.7)"/><path d="M263.157 593.525V510.987H231.254V502.681H304.657V510.987H272.754V593.525H263.157Z" fill="rgba(255,255,255,0.7)"/><path d="M319.989 593.525V502.681H382.239V510.987H329.586V585.22H384.184V593.525H319.989ZM328.548 551.477V543.301H376.532V551.477H328.548Z" fill="rgba(255,255,255,0.7)"/><path d="M406.742 593.525V502.681H414.653L456.153 573.54H452.003L493.114 502.681H501.025V593.525H491.817V517.086H494.022L456.153 581.975H451.614L413.486 517.086H415.95V593.525H406.742Z" fill="rgba(255,255,255,0.7)"/><path d="M591.212 594.304C584.262 594.304 577.58 593.223 571.166 591.06C564.84 588.81 559.94 585.955 556.465 582.494L560.341 575.097C563.637 578.212 568.047 580.85 573.571 583.013C579.184 585.09 585.064 586.128 591.212 586.128C597.092 586.128 601.858 585.436 605.511 584.052C609.253 582.581 611.97 580.634 613.663 578.212C615.445 575.789 616.336 573.107 616.336 570.165C616.336 566.618 615.267 563.763 613.129 561.6C611.079 559.437 608.362 557.75 604.977 556.539C601.591 555.241 597.849 554.116 593.751 553.164C589.653 552.213 585.554 551.218 581.456 550.18C577.358 549.055 573.571 547.584 570.097 545.767C566.711 543.95 563.949 541.571 561.811 538.629C559.762 535.601 558.737 531.665 558.737 526.819C558.737 522.32 559.94 518.211 562.345 514.491C564.84 510.684 568.627 507.656 573.705 505.406C578.783 503.07 585.287 501.902 593.216 501.902C598.473 501.902 603.685 502.637 608.852 504.108C614.019 505.493 618.474 507.439 622.216 509.948L618.875 517.605C614.866 515.01 610.589 513.106 606.046 511.895C601.591 510.684 597.27 510.078 593.083 510.078C587.47 510.078 582.837 510.813 579.184 512.284C575.531 513.755 572.814 515.745 571.032 518.254C569.339 520.677 568.493 523.445 568.493 526.56C568.493 530.107 569.517 532.962 571.567 535.125C573.705 537.288 576.467 538.975 579.852 540.187C583.327 541.398 587.113 542.479 591.212 543.431C595.31 544.383 599.364 545.421 603.373 546.546C607.471 547.67 611.213 549.141 614.599 550.958C618.073 552.689 620.835 555.025 622.884 557.966C625.022 560.908 626.092 564.758 626.092 569.516C626.092 573.929 624.844 578.039 622.35 581.845C619.855 585.566 616.024 588.594 610.857 590.93C605.778 593.179 599.23 594.304 591.212 594.304Z" fill="rgba(255,255,255,0.7)"/><path d="M656.192 570.944L655.791 559.264L712.454 502.681H723.813L682.519 544.729L676.906 550.569L656.192 570.944ZM647.639 593.525V502.681H657.528V593.525H647.639ZM714.86 593.525L674.5 548.363L681.182 541.355L726.62 593.525H714.86Z" fill="rgba(255,255,255,0.7)"/><path d="M742.648 593.525V502.681H752.538V593.525H742.648Z" fill="rgba(255,255,255,0.7)"/><path d="M782.975 593.525V502.681H792.864V585.22H845.251V593.525H782.975Z" fill="rgba(255,255,255,0.7)"/><path d="M861.671 593.525V502.681H871.56V585.22H923.947V593.525H861.671Z" fill="rgba(255,255,255,0.7)"/><path d="M965.115 594.304C958.166 594.304 951.484 593.223 945.07 591.06C938.744 588.81 933.844 585.955 930.369 582.494L934.245 575.097C937.541 578.212 941.951 580.85 947.475 583.013C953.088 585.09 958.968 586.128 965.115 586.128C970.996 586.128 975.762 585.436 979.415 584.052C983.157 582.581 985.874 580.634 987.567 578.212C989.349 575.789 990.24 573.107 990.24 570.165C990.24 566.618 989.171 563.763 987.032 561.6C984.983 559.437 982.266 557.75 978.88 556.539C975.495 555.241 971.753 554.116 967.655 553.164C963.556 552.213 959.458 551.218 955.36 550.18C951.261 549.055 947.475 547.584 944 545.767C940.615 543.95 937.853 541.571 935.715 538.629C933.666 535.601 932.641 531.665 932.641 526.819C932.641 522.32 933.844 518.211 936.249 514.491C938.744 510.684 942.53 507.656 947.609 505.406C952.687 503.07 959.191 501.902 967.12 501.902C972.377 501.902 977.589 502.637 982.756 504.108C987.923 505.493 992.378 507.439 996.12 509.948L992.779 517.605C988.77 515.01 984.493 513.106 979.949 511.895C975.495 510.684 971.174 510.078 966.986 510.078C961.374 510.078 956.741 510.813 953.088 512.284C949.435 513.755 946.718 515.745 944.936 518.254C943.243 520.677 942.397 523.445 942.397 526.56C942.397 530.107 943.421 532.962 945.47 535.125C947.609 537.288 950.371 538.975 953.756 540.187C957.231 541.398 961.017 542.479 965.115 543.431C969.214 544.383 973.267 545.421 977.277 546.546C981.375 547.67 985.117 549.141 988.502 550.958C991.977 552.689 994.739 555.025 996.788 557.966C998.926 560.908 999.995 564.758 999.995 569.516C999.995 573.929 998.748 578.039 996.253 581.845C993.759 585.566 989.928 588.594 984.761 590.93C979.682 593.179 973.134 594.304 965.115 594.304Z" fill="rgba(255,255,255,0.7)"/>
+          <line x1="1087.25" y1="186.75" x2="1087.25" y2="632.25" stroke="#E5A93C" stroke-width="4.5" stroke-linecap="round"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M1551.12 0.917682C1533.91 5.10315 1519.24 18.8065 1514.73 34.9038C1511.8 45.3789 1513.23 61.3286 1517.93 70.5444C1525.3 84.9749 1545.65 97.4154 1561.89 97.4154C1565.1 97.4154 1567.06 100.122 1572.67 112.324C1583.22 135.253 1596.84 147.49 1631.22 164.94C1646.25 172.568 1658.15 182.168 1685.03 208.349L1713.27 235.852L1713.29 246.111C1713.34 278.625 1745.25 296.918 1772.6 280.117C1779.23 276.045 1784.54 268.124 1787.34 258.125C1791.19 244.355 1783.96 225.303 1771.89 217.398C1764.85 212.787 1751.34 209.931 1744.2 211.542C1737.88 212.966 1737.82 212.924 1712.37 188.37C1698.35 174.84 1686.56 162.08 1686.16 160.013C1684.46 151.171 1679.33 58.738 1680.48 57.591C1682.09 55.9857 1707.43 64.123 1729.09 73.2018C1763.59 87.6586 1799.55 110.056 1830.14 136.124C1874.98 174.336 1908.84 221.23 1932.04 277.243C1935.44 285.456 1938.22 292.615 1938.22 293.152C1938.22 293.692 1935.11 294.131 1931.3 294.131C1920.35 294.131 1901.51 299.115 1888.13 305.553C1874.51 312.111 1863.42 321.443 1825.75 358.044C1788.52 394.215 1793 391.275 1780.11 387.973C1756.91 382.034 1735.77 392.014 1724.38 414.273C1720.47 421.913 1720.04 424.616 1720.58 438.269L1721.18 453.653L1700.42 474.856L1679.65 496.059L1684.24 503.552C1686.77 507.672 1690.58 514.002 1692.7 517.617C1694.83 521.233 1696.97 524.168 1697.46 524.14C1697.94 524.114 1708.89 513.597 1721.79 500.77L1745.24 477.448L1754.3 480.577C1765.37 484.4 1771.73 484.571 1782.48 481.337C1793.89 477.905 1805.34 468.753 1810.94 458.592C1816.33 448.788 1818.41 432.271 1815.55 421.912L1813.73 415.329L1849.17 381.116C1868.67 362.3 1887.96 344.462 1892.04 341.478C1913.68 325.656 1950.29 323.364 1978.6 336.061C1982.93 338.002 1986.74 339.316 1987.07 338.98C1988.23 337.826 1978.5 300.232 1972.29 281.836C1964.11 257.631 1943.11 215.144 1928.45 193.139C1895.36 143.466 1847.66 97.4751 1799.12 68.4367C1779.15 56.4845 1747.67 41.2689 1726.45 33.3055C1699.21 23.0815 1635.95 7.9889 1635.95 11.7142C1635.95 12.1779 1637.47 16.9693 1639.32 22.3614C1641.18 27.7518 1643.52 37.9529 1644.52 45.0294C1646.88 61.6694 1650.84 134.048 1649.47 135.418C1647.75 137.136 1625.31 125.869 1617.17 119.198C1612.04 114.995 1607.64 108.909 1603.45 100.199C1596.34 85.4192 1596.02 82.8163 1600.72 77.779C1609.07 68.8126 1612.13 45.3525 1606.88 30.4548C1603.54 20.9897 1591.78 8.51757 1582.26 4.35317C1573.13 0.362662 1559.57 -1.13554 1551.12 0.917682ZM1460.21 24.448C1423.13 35.2814 1390.63 49.7558 1359.15 69.4625C1324.74 91.0046 1294.55 117.004 1265.5 150.107C1227.15 193.823 1196.01 257.027 1184.49 314.54C1179.63 338.85 1179.36 342.575 1182.55 341.78C1183.99 341.423 1189.13 340.034 1193.96 338.694C1203.51 336.047 1220.05 335.044 1276.19 333.709L1312.73 332.842L1305.36 346.984C1301.31 354.761 1295.78 363.343 1293.07 366.051C1290.36 368.761 1280.95 373.853 1272.16 377.37L1256.18 383.761L1250.55 379.551C1238.93 370.855 1233.23 368.953 1218.56 368.863C1206.96 368.793 1203.01 369.538 1195.99 373.123C1186.49 377.97 1179.04 385.635 1173.76 395.98C1168.36 406.547 1168.84 425.886 1174.78 437.805C1182.96 454.204 1199.85 464.5 1218.57 464.5C1241.66 464.5 1263 445.417 1266.23 421.873C1267.32 413.927 1267.39 413.853 1278.09 410.012C1306.87 399.679 1319.38 388.73 1335.43 359.835C1343.7 344.938 1348.79 338.66 1370.77 316.237L1396.45 290.04L1411.48 289.891C1425.27 289.752 1427.14 289.297 1434.13 284.393C1458.3 267.435 1454.92 230.741 1428.16 219.569C1424.58 218.072 1416.98 216.85 1411.25 216.85C1402.43 216.85 1399.57 217.716 1392.37 222.558C1380.86 230.309 1377.24 237.15 1376.22 253.096L1375.38 266.116L1358.07 282.57L1340.75 299.024L1312.17 300.05C1253.69 302.149 1224.71 302.512 1224.71 301.146C1224.71 296.516 1238.66 260.366 1246.93 243.563C1282.57 171.147 1346.45 110.311 1420.96 77.8194C1432.07 72.9735 1441.4 69.2763 1441.69 69.6012C1441.98 69.9262 1443.9 76.9095 1445.96 85.1207C1452.01 109.296 1456.75 117.108 1478.51 138.78C1489.22 149.455 1511.26 170.369 1527.49 185.252C1556.08 211.487 1556.94 212.475 1555.6 217.654C1554.85 220.593 1554.26 228.135 1554.29 234.414C1554.4 253.72 1566.73 270.82 1585.54 277.751C1592.79 280.424 1610.02 280.617 1618.37 278.118C1624.87 276.17 1625.05 276.256 1641.42 288.958C1650.49 296 1662.81 306.03 1668.8 311.249L1679.69 320.735L1694.93 311.424L1710.18 302.114L1703.38 296.196C1699.64 292.942 1685.78 281.578 1672.59 270.941L1648.61 251.605L1649.56 237.768C1650.69 221.228 1647.58 211.226 1638.01 200.637C1628.12 189.696 1616.39 184.548 1601.68 184.692C1594.91 184.759 1587.21 185.676 1584.56 186.729C1579.93 188.574 1578.5 187.504 1546.78 158.462C1497.26 113.135 1488.94 104.365 1482.49 90.7587C1477.35 79.9235 1476.9 77.5577 1476.95 61.4094C1477 45.6617 1478.99 34.5226 1484.15 21.0775C1485.58 17.3522 1483.49 17.6455 1460.21 24.448ZM1569.15 31.5403C1580.7 37.5103 1583.38 51.1188 1574.88 60.5892C1571.06 64.8397 1568.48 66.0322 1562.61 66.2571C1543.44 66.9947 1535.62 43.5768 1551.47 32.8997C1558.39 28.2383 1562.19 27.945 1569.15 31.5403ZM1744.91 149.861C1744.91 154.558 1745.39 161.92 1745.98 166.224L1747.05 174.048L1759.53 176.188C1791.64 181.689 1818.81 208.366 1823.79 239.277C1830.32 279.806 1804.3 313.453 1762.17 318.977C1725.77 323.747 1703.35 332.459 1688.15 347.739L1679.11 356.827L1670.6 345.802C1656.66 327.766 1634.56 313.179 1612.46 307.435C1606.8 305.964 1594.14 303.947 1584.35 302.955C1570.37 301.539 1564.12 299.969 1555.34 295.671C1534.5 285.472 1526.08 273.095 1520.04 243.793C1512.79 208.614 1507.37 197.238 1489.21 179.059C1468.53 158.36 1444.56 148.351 1415.66 148.351C1395.28 148.351 1384.91 150.764 1365.7 159.978C1340.13 172.236 1321.44 192.705 1310.23 220.689C1302.69 239.541 1303.01 240.166 1321.37 242.317C1326.69 242.941 1332.34 243.816 1333.93 244.262C1336.14 244.882 1337.55 242.774 1339.9 235.292C1343.72 223.159 1355.51 205.957 1365.34 198.183C1396.2 173.78 1439.12 174.863 1464.69 200.689C1475.89 212.007 1482.24 225.428 1486.56 246.952C1493.99 284.005 1500.17 296.505 1518.97 312.557L1528.66 320.826L1518.29 328.452C1496.23 344.681 1477.91 379.3 1477.81 404.947C1477.74 419.723 1467.23 441.702 1454.94 452.748C1443.85 462.714 1431.54 467.444 1410.53 469.82C1380.68 473.196 1362.5 481.362 1344.2 499.628C1314.24 529.522 1305.67 575.629 1322.85 614.445C1332.81 636.96 1355.48 659.702 1378.25 670.019C1391.41 675.982 1408.62 680.471 1418.47 680.51L1425.06 680.536L1424.88 668.68C1424.6 649.541 1424.08 648.689 1411.06 646.034C1381.74 640.058 1358.08 619.047 1350.34 592.111C1343.55 568.521 1349.43 542.507 1365.49 525.103C1379.15 510.288 1393.44 504.072 1420.57 501.144C1438.8 499.177 1456.23 493.788 1466.04 487.098C1469.11 484.999 1475.85 479.254 1481 474.331L1490.38 465.379L1494.95 471.526C1503.78 483.387 1522.8 500.561 1533.19 506.048C1547.64 513.677 1559.59 516.955 1583.25 519.783C1594.38 521.112 1607.94 523.865 1613.38 525.902C1635.18 534.052 1647.37 551.478 1654.36 584.446C1661.33 617.339 1668 630.23 1687.42 648.347C1727.98 686.165 1791.25 685.695 1834.91 647.251C1849.79 634.146 1866.24 605.721 1869.17 588.039L1870.09 582.482L1859.78 581.402C1854.11 580.807 1847 580.014 1843.98 579.639C1838.67 578.982 1838.33 579.352 1833.87 590.667C1831.33 597.108 1827.7 604.73 1825.8 607.607C1818.5 618.641 1805.45 629.884 1792.54 636.263C1779.73 642.588 1778.8 642.774 1759.9 642.774C1741.51 642.774 1739.8 642.461 1728.87 637.079C1714.59 630.054 1700.95 616.916 1695.09 604.544C1692.65 599.4 1689.08 587.316 1687.15 577.691C1679.94 541.718 1670.08 522.728 1651.6 509.165L1643.07 502.911L1653.13 494.475C1666.41 483.332 1669.66 479.644 1677.12 467.24C1686.16 452.209 1690.25 440.015 1693.13 419.54C1696.42 396.105 1701.32 383.31 1710.92 373.045C1721.54 361.701 1734.43 356.309 1759.11 352.891C1793.39 348.143 1811.43 339.95 1829.58 320.886C1848.75 300.754 1857.78 278.617 1857.63 252.095C1857.48 226.145 1851.71 209.078 1835.24 185.851C1818.44 162.163 1779.16 141.508 1750.62 141.355C1744.95 141.325 1744.91 141.395 1744.91 149.861ZM1608.53 215.785C1616.09 218.942 1620.13 224.817 1620.13 232.657C1620.13 240.484 1616.09 246.371 1608.57 249.512C1597.18 254.27 1583.22 244.994 1583.22 232.657C1583.22 226.366 1588.47 218.453 1594.32 215.908C1601.38 212.842 1601.48 212.84 1608.53 215.785ZM1449.49 321.453L1425.62 345.122L1419.25 342.46C1410.05 338.622 1392.51 339.098 1382.88 343.445C1373.18 347.824 1362.68 357.689 1357.93 366.894C1353.41 375.648 1351.92 391.621 1354.63 402.352L1356.72 410.667L1322.79 443.887C1282.38 483.452 1275.32 489.341 1262.06 494.598C1253.52 497.982 1248.69 498.604 1230.86 498.609C1212.15 498.613 1208.44 498.086 1197.91 493.93C1183.24 488.136 1183.34 487.521 1193.69 518.23C1216.94 587.224 1249.62 639.322 1300.51 688.489C1362.56 748.445 1432.77 784.47 1522.86 802.573L1528.39 803.685L1524.38 789.887C1520.48 776.468 1519.95 770.937 1515.46 696.8L1514.48 680.571L1522.05 683.838C1554.64 697.896 1559.25 701.924 1567.16 723.229L1570.95 733.428L1566.75 739.036C1558.43 750.143 1556.21 756.466 1556.13 769.234C1555.98 795.504 1573.97 815.564 1600.51 818.706C1627.71 821.925 1653.52 798.267 1653.52 770.112C1653.52 745.635 1635.58 725.496 1611.41 722.858L1601.82 721.811L1596.03 707.76C1584.3 679.336 1575.56 670.951 1542.86 656.767C1519.73 646.729 1514.89 643.132 1484.37 613.261L1458.45 587.89V577.074C1458.45 553.265 1443.98 537.754 1421.54 537.499C1400.92 537.266 1385.22 551.038 1383.41 570.936C1381.22 595.046 1399.79 613.693 1423.98 611.687L1433.53 610.895L1457.2 633.86L1480.87 656.825L1482.89 705.81C1483.99 732.753 1484.54 755.163 1484.09 755.611C1482.49 757.206 1453.7 746.618 1432.97 736.812C1350.99 698.038 1286.2 634.865 1248.3 556.744C1236.48 532.383 1236.44 531.32 1247.31 531.269C1255.62 531.233 1273.08 526.457 1282.69 521.594C1295.68 515.012 1307.64 504.697 1345.5 467.407L1381.05 432.39L1391.52 434.61C1397.32 435.84 1405.37 436.323 1409.58 435.694C1420.13 434.111 1434.67 425.356 1440.81 416.89C1448.51 406.269 1450.24 399.17 1449.21 382.572L1448.3 367.954L1454.69 362.096C1458.21 358.875 1468.09 349.044 1476.65 340.25L1492.21 324.26L1483.81 312.269C1479.19 305.674 1474.95 299.716 1474.38 299.029C1473.81 298.344 1462.61 308.433 1449.49 321.453ZM1614.94 346.125C1641.77 358.829 1657.22 382.614 1657.33 411.38C1657.43 436.005 1646.14 457.327 1625.75 471.022C1612.53 479.899 1605.91 482.075 1588.35 483.304C1529.91 487.397 1492.77 421.813 1525.16 371.726C1539.21 350.009 1559.94 339.569 1587.62 340.273C1601.17 340.619 1605.08 341.455 1614.94 346.125ZM1931.61 367.139C1916.63 374.603 1905.04 391.12 1904.49 405.802C1904.27 411.454 1903.48 412.536 1897.95 414.737C1861.1 429.388 1852.69 435.987 1838.16 461.636C1826.33 482.507 1819.76 490.463 1793.88 515.207L1773.44 534.756H1762.08C1747.22 534.756 1737.32 539.784 1729.53 551.301C1724.6 558.585 1723.82 561.242 1723.82 570.685C1723.82 584.451 1729.02 595.014 1739.41 602.324C1749.41 609.365 1767.07 610.735 1777.74 605.298C1792.53 597.754 1800.74 582.586 1798.8 566.388L1797.85 558.467L1814.12 542.482L1830.39 526.497L1870.69 525.352C1943.66 523.28 1944.46 523.299 1943.77 527.07C1942.75 532.68 1931.32 559.366 1922.04 577.787C1904.33 612.952 1884.1 639.739 1851.46 671.229C1819.73 701.843 1783.74 725.881 1744.03 742.993L1726.45 750.565L1724.29 740.58C1720.28 722.02 1716.8 712.711 1709.85 701.976C1701.24 688.658 1694.55 682.006 1651.22 643.71C1617.35 613.779 1616.54 612.901 1617.88 607.704C1620.77 596.505 1619.43 578.235 1615.11 569.884C1603.82 548.038 1582.02 538.397 1557.69 544.493L1546.19 547.377L1533.51 537.793C1526.54 532.52 1514.13 522.199 1505.94 514.856C1491.14 501.599 1491.01 501.527 1486.61 504.413C1484.17 506.011 1477.63 510.028 1472.07 513.338C1466.51 516.649 1461.96 519.772 1461.96 520.278C1461.96 520.782 1463.06 522.073 1464.4 523.146C1465.74 524.218 1479.94 536.07 1495.96 549.481L1525.08 573.865L1524.09 587.244C1523.14 599.951 1523.38 601.189 1529.02 611.993C1539.61 632.274 1561.17 642.934 1582.82 638.588C1593.69 636.407 1593.71 636.412 1611.34 653.054C1616.66 658.07 1630.5 670.454 1642.1 680.576C1681.45 714.912 1687.36 722.83 1690.96 745.961C1693.27 760.812 1690.72 779.176 1684.62 791.48L1680.3 800.208L1687.56 798.997C1700.04 796.916 1729.15 787.725 1749.3 779.507C1810.09 754.714 1870.85 709.569 1912.1 658.541C1937.02 627.723 1961 585.433 1973.63 550.047C1980.62 530.47 1993.17 485.458 1991.97 484.263C1991.61 483.905 1986.69 484.876 1981.03 486.42C1970.8 489.211 1955.61 490.077 1891.27 491.54L1859.26 492.269L1864.66 481.458C1867.64 475.513 1872.01 468.064 1874.38 464.908C1878.96 458.811 1892.68 451.147 1907.94 446.15L1917.2 443.12L1923.33 448.494C1935.15 458.869 1956.46 461.646 1972.59 454.91C1980.99 451.405 1992.83 439.999 1996.38 432.007C2011.26 398.48 1988.5 362.63 1952.35 362.63C1943.33 362.63 1938.6 363.657 1931.61 367.139ZM1415.83 375.87C1420.13 380.786 1421.21 391.818 1417.98 397.854C1415.82 401.885 1407.37 406.54 1402.21 406.54C1396.14 406.54 1388.4 401.567 1385.38 395.729C1380.29 385.907 1385.57 372.666 1395.63 369.991C1403.13 367.999 1410.93 370.272 1415.83 375.87ZM1962.57 394.991C1968.17 397.882 1971.61 404.393 1971.61 412.067C1971.61 420.094 1961.72 429.373 1953.16 429.373C1948.11 429.373 1945.32 428.04 1940.68 423.401C1924.79 407.516 1942.45 384.592 1962.57 394.991ZM1228.74 401.299C1234.16 405.556 1237.6 415.012 1236.02 421.297C1234.34 427.98 1225.6 434.642 1218.51 434.642C1205.93 434.642 1199.31 427.85 1199.31 414.951C1199.31 400.84 1217.45 392.424 1228.74 401.299ZM1780.91 420.575C1784.9 423.884 1787.53 432.599 1786.38 438.722C1784.7 447.667 1777.9 453.084 1768.34 453.084C1761.63 453.084 1759.66 452.216 1755.31 447.348C1745.9 436.825 1750.02 420.849 1763.03 417.387C1768.83 415.845 1776.96 417.292 1780.91 420.575ZM1579.77 574.304C1582.6 575.769 1586.12 579.287 1587.59 582.12C1595 596.442 1583.94 612.618 1568.8 609.592C1552.01 606.237 1548.19 583.9 1562.87 574.951C1569.44 570.952 1573.01 570.814 1579.77 574.304ZM1615.89 755.442C1620.76 758.632 1623.91 768.327 1622.45 775.62C1620.98 782.99 1612.56 789.432 1604.42 789.432C1591.57 789.432 1582.57 776.582 1586.69 764.108C1590.65 752.112 1604.52 747.997 1615.89 755.442Z" fill="#E5A93C" opacity="0.6"/>
+        </svg>
+        <p>Your trusted partner for B-BBEE compliance consulting and SAQA-accredited NQF Level 5 ICT workforce development across South Africa.</p>
+        <div class="gold-rule"></div>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#">BEE Advisory</a></li>
+          <li><a href="#">BEE Strategy</a></li>
+          <li><a href="#">Audit Assistance</a></li>
+          <li><a href="#">BEE Training</a></li>
+          <li><a href="#">Y.E.S Programme</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Programmes</h5>
+        <ul>
+          <li><a href="#">End User Computing</a></li>
+          <li><a href="#">IT Technical Support</a></li>
+          <li><a href="#">Cyber Security</a></li>
+          <li><a href="#">Web Development</a></li>
+          <li><a href="#">View All 14 →</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Team</a></li>
+          <li><a href="#">Accreditations</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <p>© 2025 Prime System Skills. All rights reserved. SAQA Accredited Institution.</p>
+      <p class="tag">Transforming South Africa — One Skill at a Time.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 24));
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }});
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal').forEach((el,i) => {
+  el.style.transitionDelay = (i % 4) * 80 + 'ms';
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
